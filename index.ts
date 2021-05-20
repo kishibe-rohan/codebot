@@ -19,7 +19,7 @@ app.post('/refresh-roles', async (req, res) => {
 app.post('/add-role', async (req, res) => {
 	const { error, value } = modifyRole.validate(req.body)
 	if (error) {
-		return { status: 'error', error }
+		return res.json({ status: 'error', error })
 	}
 
 	const { memberID, role } = value
@@ -29,43 +29,39 @@ app.post('/add-role', async (req, res) => {
 	const memberRole = server.roles.cache.find(r => r.name === role)
 
 	if (!memberRole) {
-		return { status: 'error', error: 'Member role not found' }
+		return res.json({ status: 'error', error: 'Member role not found' })
 	}
 
 	if (!member) {
-		return { status: 'error', error: 'Member not found' }
+		return res.json({ status: 'error', error: 'Member not found' })
 	}
 
 	console.log(await member.roles.add(memberRole))
-	return { status: 'ok' }
+	return res.json({ status: 'ok' })
 })
 
 app.post('/remove-role', async (req, res) => {
 	const { error, value } = modifyRole.validate(req.body)
 	if (error) {
-		return { status: 'error', error }
+		return res.json({ status: 'error', error })
 	}
 
 	const { memberID, role } = value
-	const server = client.guilds.cache.get(SERVER.guildID)
 
-	if (!server) {
-		return { status: 'error', error: 'Guild ID server not found' }
-	}
+	const member = await server.members.fetch(memberID)
+
 	const memberRole = server.roles.cache.find(r => r.name === role)
 
 	if (!memberRole) {
-		return { status: 'error', error: 'Member role not found' }
+		return res.json({ status: 'error', error: 'Member role not found' })
 	}
 
-	const member = server.members.cache.get(memberID)
-
 	if (!member) {
-		return { status: 'error', error: 'Member not found' }
+		return res.json({ status: 'error', error: 'Member not found' })
 	}
 
 	console.log(await member.roles.remove(memberRole))
-	return { status: 'ok' }
+	return res.json({ status: 'ok' })
 })
 
 async function boot() {
