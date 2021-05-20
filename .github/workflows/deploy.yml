@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+name: Deploy on EC2
+on:
+    push:
+        branches: [master]
+env:
+    NODE_OPTIONS: --max_old_space_size=6144 # GitHub Action server is 7GB
+    NODE_ENV: development
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '14.4.0'
+            - name: Install Packages
+              run: yarn install --frozen-lockfile
+
+            - name: Build Files
+              env:
+                  NODE_ENV: production
+              run: yarn build
+
+            - name: Push to EC2
+              env:
+                  PRIVATE_SSH_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
+                  EC2_IP: ${{ secrets.EC2_IP }}
+              run: ./deploy-to-ec2.sh
