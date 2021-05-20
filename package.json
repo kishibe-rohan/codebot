@@ -4,6 +4,7 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
+		"start:prod": "pm2 start index.js",
 		"build": "webpack --mode production"
 	},
 	"dependencies": {
