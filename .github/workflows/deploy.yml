@@ -14,6 +14,18 @@ jobs:
             - uses: actions/setup-node@v1
               with:
                   node-version: '14.4.0'
+
+            - name: Get Yarn cache directory
+              id: yarn-cache-dir-path
+              run: echo "::set-output name=dir::$(yarn cache dir)"
+
+            - name: Use Yarn cache
+              uses: actions/cache@v2
+              id: yarn-cache
+              with:
+                  path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+                  key: ${{ runner.os }}-yarn-14.4.0-${{ hashFiles('**/yarn.lock') }}
+
             - name: Install Packages
               run: yarn install --frozen-lockfile
 
