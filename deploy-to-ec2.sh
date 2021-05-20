@@ -13,6 +13,6 @@ chmod 600 ~/.ssh/id_rsa
 # copy package files inside build folder
 cp package.json yarn.lock build
 
-scp -r build ubuntu@$EC2_IP:~/
+scp -i ~/.ssh/id_rsa -r build ubuntu@$EC2_IP:~/
 
 echo "Done"
