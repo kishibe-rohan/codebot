@@ -2,7 +2,7 @@ const path = require('path')
 const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
-	entry: path.resolve(__dirname, 'src/index.ts'),
+	entry: path.resolve(__dirname, 'src', 'index.ts'),
 	externals: [nodeExternals()],
 	target: 'node',
 	resolve: {
@@ -13,7 +13,7 @@ module.exports = {
 		filename: './index.js'
 	},
 	node: {
-		__dirname: true
+		__dirname: false
 	},
 	module: {
 		rules: [
