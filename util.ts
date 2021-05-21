@@ -3,10 +3,10 @@ import express from 'express'
 
 export const SERVER = {
 	guildID: '794898639070953513',
-	botToken: 'ODQ0OTc3NzU2NzU5Nzg1NDgy.YKaQ3A.hYTvS1lOQVrE6x0rPMFRPTE5AzE'
+	botToken: process.env.BOT_TOKEN
 }
 
-const SHARED_SECRET = '13377331'
+const SHARED_SECRET = process.env.SHARED_SECRET
 
 export const authMiddleware = (
 	req: express.Request,
