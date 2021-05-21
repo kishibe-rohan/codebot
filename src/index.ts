@@ -119,6 +119,15 @@ app.post('/remove-role', async (req, res) => {
 
 async function boot() {
 	await client.login(SERVER.botToken)
+	client.once('ready', () => {
+		if (client.user) {
+			client.user.setActivity({
+				name: 'Contribute',
+				type: 'STREAMING',
+				url: 'https://github.com/codedamn/codebot'
+			})
+		}
+	})
 	server = await client.guilds.fetch(SERVER.guildID)
 
 	if (!server) {
