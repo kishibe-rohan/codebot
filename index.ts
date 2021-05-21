@@ -36,7 +36,7 @@ function tryAnsweringStackoverflowQuery(message: Discord.Message): boolean {
 	if (!message.content.startsWith('!q')) return false
 
 	const msg = message.content.replace('!q', '')
-	const query = encodeURIComponent(msg)
+	const query = encodeURIComponent(msg.trim())
 	const link = `https://stackoverflow.com/search?tab=relevance&q=${query}`
 	message.channel.send(`HEY! This might help: ${link}`)
 	return true
