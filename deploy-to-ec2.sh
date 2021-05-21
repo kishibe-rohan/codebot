@@ -6,7 +6,7 @@ set -e
 
 mkdir ~/.ssh
 touch ~/.ssh/id_rsa
-$KEY=$PRIVATE_SSH_KEY | base64 -d
+KEY=$(echo $PRIVATE_SSH_KEY | base64 -d)
 echo "::add-mask::$KEY"
 echo $KEY > ~/.ssh/id_rsa
 echo "" >> ~/.ssh/id_rsa
@@ -25,7 +25,7 @@ scp -o StrictHostKeyChecking=no -r build ubuntu@$EC2_IP:~/
 ssh ubuntu@$EC2_IP <<'EOL'
 	cd ~/build
     yarn install --frozen-lockfile
-    ./env.sh && yarn start:prod
+    ./.env.sh && yarn start:prod
 EOL
 
 echo "Done"
