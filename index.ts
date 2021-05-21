@@ -31,6 +31,12 @@ client.on('message', message => {
 	)
 })
 
+client.on('guildMemberAdd', member => {
+	member.send(
+		`Welcome to codedamn server! People like you are the fundamental blocks of development community, and although I am a bot, I was coded by one of the developers like you. Make sure you have also linked your Discord account with your codedamn official account on settings page: https://codedamn.com/settings\n\nAll the best!`
+	)
+})
+
 const app = express()
 
 app.use(authMiddleware)
