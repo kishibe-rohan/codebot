@@ -6,9 +6,7 @@ set -e
 
 mkdir ~/.ssh
 touch ~/.ssh/id_rsa
-KEY=$(echo $PRIVATE_SSH_KEY | base64 -d)
-echo "::add-mask::$KEY"
-echo $KEY > ~/.ssh/id_rsa
+echo $PRIVATE_SSH_KEY >> ~/.ssh/id_rsa
 echo "" >> ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 
