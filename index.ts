@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+import path from 'path'
+dotenv.config({ path: path.join(__dirname, '.env') })
+
 import express from 'express'
 import Discord from 'discord.js'
 import { modifyRole, authMiddleware, SERVER } from './util'
