@@ -21,6 +21,9 @@ const jokes = [
 ]
 
 client.on('message', message => {
+	if (message.author.bot) return
+	if (!message.mentions.has(client.user!.id)) return // only for discord bot mentions right now
+
 	message.channel.send(
 		`Hi. I'm still under development and will be able to help you soon, meanwhile here's a dev joke for you:\n\n${
 			jokes[Math.floor(Math.random() * jokes.length)]
