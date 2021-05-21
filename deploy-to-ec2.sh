@@ -24,7 +24,7 @@ scp -o StrictHostKeyChecking=no -r build ubuntu@$EC2_IP:~/
 ssh ubuntu@$EC2_IP <<'EOL'
 	cd ~/build
     yarn install --frozen-lockfile
-    ./.env.sh && yarn start:prod
+    source .env.sh && yarn start:prod
 EOL
 
 echo "Done"
