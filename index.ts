@@ -20,15 +20,31 @@ const jokes = [
 	'There are two ways to write error-free programs; only the third one works.'
 ]
 
-client.on('message', message => {
-	if (message.author.bot) return
-	if (!message.mentions.has(client.user!.id)) return // only for discord bot mentions right now
+function defaultResponse(message: Discord.Message) {
+	if (!message.mentions.has(client.user!.id)) return
 
 	message.channel.send(
 		`Hi. I'm still under development and will be able to help you soon, meanwhile here's a dev joke for you:\n\n${
 			jokes[Math.floor(Math.random() * jokes.length)]
 		}`
 	)
+
+	return true
+}
+
+function tryAnsweringStackoverflowQuery(message: Discord.Message): boolean {
+	if (!message.content.startsWith('!q')) return false
+
+	const msg = message.content.replace('!q', '')
+	const query = encodeURIComponent(msg)
+	const link = `https://stackoverflow.com/search?tab=relevance&q=${query}`
+	message.channel.send(`HEY! This might help: ${link}`)
+	return true
+}
+
+client.on('message', message => {
+	if (tryAnsweringStackoverflowQuery(message)) return
+	if (defaultResponse(message)) return
 })
 
 client.on('guildMemberAdd', member => {
