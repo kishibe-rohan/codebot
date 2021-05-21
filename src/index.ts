@@ -122,8 +122,8 @@ async function boot() {
 	client.once('ready', () => {
 		if (client.user) {
 			client.user.setActivity({
-				name: 'Contribute',
-				type: 'STREAMING',
+				name: 'my github code',
+				type: 'WATCHING',
 				url: 'https://github.com/codedamn/codebot'
 			})
 		}
