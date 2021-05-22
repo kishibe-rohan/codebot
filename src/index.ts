@@ -64,6 +64,10 @@ app.use(express.json())
 
 let server: Discord.Guild
 
+app.get('/roles', async (req, res) => {
+	return res.json({ status: 'ok', data: server.roles.cache })
+})
+
 app.post('/refresh-roles', async (req, res) => {
 	await server.roles.fetch()
 	return res.json({ status: 'ok' })
