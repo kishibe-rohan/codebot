@@ -66,7 +66,7 @@ let server: Discord.Guild
 
 app.post('/refresh-roles', async (req, res) => {
 	await server.roles.fetch()
-	return { status: 'ok' }
+	return res.json({ status: 'ok' })
 })
 
 app.post('/add-role', async (req, res) => {
