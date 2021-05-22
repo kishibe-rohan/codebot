@@ -93,7 +93,7 @@ app.post('/add-role', async (req, res) => {
 		return res.json({ status: 'error', error: 'Member not found' })
 	}
 
-	console.log(await member.roles.add(memberRole))
+	await member.roles.add(memberRole)
 	return res.json({ status: 'ok' })
 })
 
@@ -117,7 +117,7 @@ app.post('/remove-role', async (req, res) => {
 		return res.json({ status: 'error', error: 'Member not found' })
 	}
 
-	console.log(await member.roles.remove(memberRole))
+	await member.roles.remove(memberRole)
 	return res.json({ status: 'ok' })
 })
 
