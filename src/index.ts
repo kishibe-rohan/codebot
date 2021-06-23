@@ -24,6 +24,8 @@ const jokes = [
 	'There are two ways to write error-free programs; only the third one works.'
 ]
 
+const weeklyChallengeTopic = "BUILD A SINGLE-PAGE WEBSITE"
+
 function defaultResponse(message: Discord.Message) {
 	if (!message.mentions.has(client.user!.id)) return
 
@@ -46,8 +48,19 @@ function tryAnsweringStackoverflowQuery(message: Discord.Message): boolean {
 	return true
 }
 
+function tryDisplayingWeeklyChallenge(message:Discord.Message) : boolean {
+	if(!message.content.startsWith('!weekly')) return false;
+	const link = "https://codedamn.com/weekly-challenges";
+	
+	message.channel.send(
+		`Topic for this week's challenge is : \n **${weeklyChallengeTopic}** \n Find out more on ${link}`
+	  );
+	return true;
+}
+
 client.on('message', message => {
 	if (tryAnsweringStackoverflowQuery(message)) return
+	if(tryDisplayingWeeklyChallenge(message)) return
 	if (defaultResponse(message)) return
 })
 
